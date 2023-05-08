@@ -1,48 +1,102 @@
-<html>
-  <form id="contact-form" name="contact" method="POST" netlify>
-    <div
-      id="form-success"
-      style="height: 100%; width: 100%; display: none; position: absolute"
-    >
-      <div style="display: flex; justify-content: center; align-items: center">
-        <p>Thankyou! I'll be in touch soon.</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta charset="utf-8" />
+    <title>Your page title here :)</title>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link
+      href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="stylesheet" href="css/normalize.css" />
+    <link rel="stylesheet" href="css/skeleton.css" />
+
+    <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+  </head>
+  <body>
+    <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <div class="container">
+      <div class="row">
+        <div class="one-half column" style="margin-top: 25%">
+          <form id="contact-form" name="contact" method="POST" netlify>
+            <div
+              id="form-success"
+              style="
+                height: 100%;
+                width: 100%;
+                display: none;
+                position: absolute;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                "
+              >
+                <p>Thankyou! I'll be in touch soon.</p>
+              </div>
+            </div>
+            <div id="form-display">
+              <p>
+                <label>Name <input type="text" name="name" /></label>
+              </p>
+              <p>
+                <label>Email <input type="email" name="email" /></label>
+              </p>
+              <p>
+                <button type="submit">Send</button>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-    <div id="form-display">
-      <p>
-        <label>Name <input type="text" name="name" /></label>
-      </p>
-      <p>
-        <label>Email <input type="email" name="email" /></label>
-      </p>
-      <p>
-        <button type="submit">Send</button>
-      </p>
-    </div>
-  </form>
-  <script>
-    const handleSubmit = (event) => {
-      event.preventDefault();
 
-      const myForm = event.target;
-      const formData = new FormData(myForm);
+    <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script>
+      const handleSubmit = (event) => {
+        event.preventDefault();
 
-      fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
-      })
-        .then(() => {
-          const formDisplay = document.getElementById("form-display");
-          formDisplay.style.visibility = "hidden";
-          const formSuccess = document.getElementById("form-success");
-          formSuccess.style.display = "block";
+        const myForm = event.target;
+        const formData = new FormData(myForm);
+
+        fetch("/", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString(),
         })
-        .catch((error) => console.log(error));
-    };
+          .then(() => {
+            const formDisplay = document.getElementById("form-display");
+            formDisplay.style.visibility = "hidden";
+            const formSuccess = document.getElementById("form-success");
+            formSuccess.style.display = "block";
+          })
+          .catch((error) => console.log(error));
+      };
 
-    document
-      .getElementById("contact-form")
-      .addEventListener("submit", handleSubmit);
-  </script>
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", handleSubmit);
+    </script>
+  </body>
 </html>
