@@ -1,13 +1,48 @@
 <html>
-  <form name="contact" netlify>
-    <p>
-      <label>Name <input type="text" name="name" /></label>
-    </p>
-    <p>
-      <label>Email <input type="email" name="email" /></label>
-    </p>
-    <p>
-      <button type="submit">Send</button>
-    </p>
+  <form id="contact-form" name="contact" method="POST" netlify>
+    <div
+      id="form-success"
+      style="height: 100%; width: 100%; display: none; position: absolute"
+    >
+      <div style="display: flex; justify-content: center; align-items: center">
+        <p>Thankyou! I'll be in touch soon.</p>
+      </div>
+    </div>
+    <div id="form-display">
+      <p>
+        <label>Name <input type="text" name="name" /></label>
+      </p>
+      <p>
+        <label>Email <input type="email" name="email" /></label>
+      </p>
+      <p>
+        <button type="submit">Send</button>
+      </p>
+    </div>
   </form>
+  <script>
+    const handleSubmit = (event) => {
+      event.preventDefault();
+
+      const myForm = event.target;
+      const formData = new FormData(myForm);
+
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      })
+        .then(() => {
+          const formDisplay = document.getElementById("form-display");
+          formDisplay.style.visibility = "hidden";
+          const formSuccess = document.getElementById("form-success");
+          formSuccess.style.display = "block";
+        })
+        .catch((error) => console.log(error));
+    };
+
+    document
+      .getElementById("contact-form")
+      .addEventListener("submit", handleSubmit);
+  </script>
 </html>
